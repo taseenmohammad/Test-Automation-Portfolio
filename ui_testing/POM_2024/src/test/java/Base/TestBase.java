@@ -18,21 +18,16 @@ import java.net.URL;
 import java.time.Duration;
 
 public class TestBase {
-
+    WebDriver driver;
     Logger log = LogManager.getLogger(TestBase.class.getName());
 
-    WebDriver driver;
+
 
 
     //
     @Parameters({"useCloudEnv", "envName", "os", "osVersion", "browserName", "browserVersion", "url"})
     @BeforeMethod
-    public void setUp(@Optional("false") String useCloudEnv,
-                      @Optional("browserstack") String envName,
-                      @Optional("windows") String os,
-                      @Optional("10") String osVersion,
-                      @Optional("edge") String browserName,
-                      @Optional("110") String browserVersion, String url) throws MalformedURLException {
+    public void setUp(String useCloudEnv, String envName, String os, String osVersion, String browserName, String browserVersion, String url) throws MalformedURLException {
         switch (useCloudEnv.toLowerCase()) {
             case "true":
                 getCloudDriver(envName, os, osVersion, browserName, browserVersion, "browserstackUsername", "browserstackPassword");
@@ -44,7 +39,6 @@ public class TestBase {
                 throw new IllegalArgumentException("Invalid useCloudEnv value: " + useCloudEnv);
         }
 
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         driver.manage().window().maximize();
         driver.get(url);
     }
@@ -64,13 +58,13 @@ public class TestBase {
     public void getLocalDriver(String browserName) {
         if (browserName.equalsIgnoreCase("chrome")) {
             driver = new ChromeDriver();
-            //  log.info("chrome browser opened successfully");
+              log.info("chrome browser opened successfully");
         } else if (browserName.equalsIgnoreCase("firefox")) {
             driver = new FirefoxDriver();
-            //  log.info("firefox browser opened successfully");
+              log.info("firefox browser opened successfully");
         } else if (browserName.equalsIgnoreCase("edge")) {
             driver = new EdgeDriver();
-            //  log.info("edge browser opened successfully");
+              log.info("edge browser opened successfully");
         }
     }
 
