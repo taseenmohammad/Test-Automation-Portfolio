@@ -1,5 +1,6 @@
 package Base;
 
+import Pages.DashboardPage;
 import Pages.LoginPage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,20 +12,21 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
 public class TestBase {
-  //  Logger log = LogManager.getLogger(TestBase.class.getName());
+    //  Logger log = LogManager.getLogger(TestBase.class.getName());
     WebDriver driver;
 
     //protected modifer is used so that any class that extends this class can use the object references.
     protected LoginPage loginPage;
+    protected DashboardPage dashboardPage;
 
-
-    @BeforeMethod
+    @BeforeTest
     @Parameters({"useCloudEnv", "envName", "os", "osVersion", "browserName", "browserVersion", "url"})
     public void setUp(String useCloudEnv, String envName, String os, String osVersion, String browserName, String browserVersion, String url) throws MalformedURLException, InterruptedException {
 

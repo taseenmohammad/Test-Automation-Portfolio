@@ -4,8 +4,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import utility.ElementUtil;
 
 public class LoginPage {
+    ElementUtil elementUtil;
     WebDriver driver;
 
 
@@ -13,6 +15,8 @@ public class LoginPage {
     public LoginPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver,this);
+        elementUtil = new ElementUtil(driver);
+
     }
 
     //Page Locators
@@ -29,12 +33,18 @@ public class LoginPage {
         return driver.getTitle();
     }
 
-    public void doLogin() {
-        userNameField.sendKeys("Admin");
-        passwordField.sendKeys("admin123");
-        loginButton.click();
 
+
+
+
+    public DashboardPage doLogin() {
+        elementUtil.waitForElementVisible(userNameField,5).sendKeys("Admin");
+        elementUtil.doSendKeys(passwordField,"Admin123");
+        loginButton.click();
+        return new DashboardPage(driver);
     }
+
+
 
 
 }
